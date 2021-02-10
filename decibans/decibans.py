@@ -1,7 +1,5 @@
 from numpy import log10
 from pandas import DataFrame
-# See 'Applications of Probability to Cryptography.'
-# https://arxiv.org/pdf/1505.04714.pdf
 
 
 def prob_to_odds(p):
@@ -74,7 +72,7 @@ def interpret(factor):
         raise ValueError('The factor should be a positive real number.')
 
 
-def novelty_summary(data_list):
+def novelty(data_list):
     """Find the first occurence of each novel item in the data list.
 
     data_list is assumed to be in order of occurence.
