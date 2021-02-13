@@ -13,7 +13,7 @@ def prob_to_odds(p):
 def odds_to_prob(odds):
     """Convert odds (on to one) to probability."""
     odds_d = Decimal(str(odds))
-    p = float(1 - (1 / (1 + odds)))
+    p = float(1 - (1 / (1 + odds_d)))
     return p
 
 
@@ -37,14 +37,14 @@ def posterior_odds(prior_odds, p_obs_true, p_obs_false):
 def dbans(odds):
     """Express the odds (on to one) as decibans (10log_{10}(odds))"""
     odds_d = Decimal(str(odds))
-    dbn = 10 * log10(odds)
+    dbn = float(10 * log10(odds_d))
     return dbn
 
 
 def dbans_to_odds(dbans):
     """Convert decibans to odds (on to one)."""
     dbans_d = Decimal(str(dbans))
-    odds = 10 ** (dbans / 10)
+    odds = float(10 ** (dbans_d / 10))
     return odds
 
 
