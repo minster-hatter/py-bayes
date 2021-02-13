@@ -1,23 +1,26 @@
+from decimal import Decimal
 from numpy import log10
 from pandas import DataFrame
 
 
 def prob_to_odds(p):
     """Convert probability to odds (on to one)."""
-    odds = p / (1 - p)
+    p_d = Decimal(str(p))
+    odds = float(p_d / (1 - p_d))
     return odds
 
 
 def odds_to_prob(odds):
     """Convert odds (on to one) to probability."""
-    p = 1 - (1 / (1 + odds))
+    odds_d = Decimal(str(odds))
+    p = float(1 - (1 / (1 + odds)))
     return p
 
 
 def factor(p_obs_true, p_obs_false):
     """Calculate the Bayes factor, given the probabilities of making the
     observiation if the theory is true and false."""
-    K = p_obs_true / p_obs_false
+    K = float(Decimal(str(p_obs_true)) / Decimal(str(p_obs_false)))
     return K
 
 
@@ -33,24 +36,28 @@ def posterior_odds(prior_odds, p_obs_true, p_obs_false):
 
 def dbans(odds):
     """Express the odds (on to one) as decibans (10log_{10}(odds))"""
+    odds_d = Decimal(str(odds))
     dbn = 10 * log10(odds)
     return dbn
 
 
 def dbans_to_odds(dbans):
     """Convert decibans to odds (on to one)."""
+    dbans_d = Decimal(str(dbans))
     odds = 10 ** (dbans / 10)
     return odds
 
 
-def laplace_smooth(alpha, occurences, trials, outcomes):
+def laplace_smooth(alpha, occurences, trials, cardinality):
     """Calculate a Laplace smoothed probability.
 
     alpha: smoothing parameter, e.g. 0.1, 0.5 (Jeffreys), or 1 (Laplace).
     occurences: number of trials with the outcome of interest.
     trials: the number of trials in which the occurences were observed.
+    cardinality: the possible outcomes of the event.
     """
-    p_star = (occurences + alpha) / (trials + alpha * outcomes)
+    alpha_d = Decimal(str(alpha))
+    p_star = (occurences + alpha_d) / (trials + alpha_d * cardinality)
     return p_star
 
 
