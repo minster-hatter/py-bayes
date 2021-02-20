@@ -13,7 +13,7 @@ def prob_to_odds(p):
 def odds_to_prob(odds):
     """Convert odds (on to one) to probability."""
     odds_d = Decimal(str(odds))
-    p = float(1 - (1 / (1 + odds_d)))
+    p = float(odds_d / (odds_d + 1))
     return p
 
 
